@@ -1,0 +1,96 @@
+
+
+
+
+           public Form1()
+        {
+            InitializeComponent();
+        }
+
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=shopdb;Integrated Security=True");
+
+
+
+       Insert Code
+
+
+        con.Open();
+            SqlCommand cnn = new SqlCommand("insert into mytab(customerid,customername,pizzas,toppings,drink,other,total) values(@customerid,@customername,@pizzas,@toppings,@drink,@other,@total)", con);
+            cnn.Parameters.AddWithValue("@CustomerID", int.Parse(textBox1.Text));
+            cnn.Parameters.AddWithValue("@CustomerName", textBox2.Text);
+            cnn.Parameters.AddWithValue("@Pizzas", textBox3.Text);
+            cnn.Parameters.AddWithValue("@Toppings", textBox4.Text);
+            cnn.Parameters.AddWithValue("@Drink", textBox5.Text);
+            cnn.Parameters.AddWithValue("@Other", textBox6.Text);
+            cnn.Parameters.AddWithValue("@Total", textBox7.Text);
+            cnn.ExecuteNonQuery();
+            con.Close();
+            ShowData();
+
+
+
+       
+
+
+
+
+      void ShowData()
+        {
+            SqlCommand cnn = new SqlCommand("select * from mytab", con);
+            SqlDataAdapter da = new SqlDataAdapter(cnn);
+            DataTable table = new DataTable();
+            da.Fill(table);
+            dataGridView1.DataSource = table;
+        }
+
+
+
+
+
+
+
+       Update Code
+
+
+       con.Open();
+            SqlCommand cnn = new SqlCommand("update mytab set customername=@customername,pizzas=@pizzas,toppings=@toppings,drink=@drink,other=@other,total=@total where customerid=@customerid", con);
+            cnn.Parameters.AddWithValue("@CustomerID", int.Parse(textBox1.Text));
+            cnn.Parameters.AddWithValue("@CustomerName", textBox2.Text);
+            cnn.Parameters.AddWithValue("@Pizzas", textBox3.Text);
+            cnn.Parameters.AddWithValue("@Toppings", textBox4.Text);
+            cnn.Parameters.AddWithValue("@Drink", textBox5.Text);
+            cnn.Parameters.AddWithValue("@Other", textBox6.Text);
+            cnn.Parameters.AddWithValue("@Total", textBox7.Text);
+            cnn.ExecuteNonQuery();
+            con.Close();
+            MessageBox.Show("Record Updated Successfully");
+            ShowData();
+
+
+
+       Delete Code
+
+      con.Open();
+            SqlCommand cnn = new SqlCommand("delete mytab where customerid=@customerid", con);
+            cnn.Parameters.AddWithValue("@CustomerID", int.Parse(textBox1.Text));
+            
+            cnn.ExecuteNonQuery();
+            con.Close();
+            MessageBox.Show("Record Deleted Successfully");
+            ShowData();
+
+
+
+      Bill Code
+
+      int Order1;
+            int Order2;
+            int Order3;
+            int integerResult;
+
+            Order1 = 10;
+            Order2 = 10;
+            Order3 = 10;
+
+            integerResult = Order1 + Order2 + Order3;
+            MessageBox.Show(integerResult.ToString());
